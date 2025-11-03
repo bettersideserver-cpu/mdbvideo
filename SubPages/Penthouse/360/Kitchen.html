@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+
+<body>
+  <button class="close-btn" id="closeCard">←</button>
+  <div class="main-container">
+    <div class="image-container"></div>
+  </div>
+  <!-- Bottom Center Panel -->
+  <nav class="jumpbar" role="navigation" aria-label="Quick jumps">
+    <div class="jumpbar-inner">
+      <button class="jumpchip is-accent" id="playWalkthroughBtn">🎥 Walkthrough</button>
+      <button class="jumpchip" onclick="location.href='Lobby_Top_Floor_2.html'">Second Floor</button>
+      <button class="jumpchip" onclick="location.href='Lobby.html'">Lobby</button>
+      <button class="jumpchip" onclick="location.href='Room_1.html'">Room 1</button>
+      <button class="jumpchip" onclick="location.href='Room_2.html'">Room 2</button>
+      <button class="jumpchip" onclick="location.href='Stair.html'">Stair</button>
+      <!-- add more as you like -->
+    </div>
+  </nav>
+  <div id="videoOverlay" class="video-overlay">
+    <video id="walkthroughVideo" controls preload="none">
+      <source src="../../../Video/Penthouse V02.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"
+    integrity="sha512-uWKImujbh9CwNa8Eey5s8vlHDB4o1HhrVszkympkm5ciYTnUEQv3t4QHU02CUqPtdKTg62FsHo12x63q6u0wmg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="../../../JS/panolens.min.js"></script>
+
+  <!-- <script>const panoramaImage = new PANOLENS.ImagePanorama("../../../images/Apparments/Penthouse/Kitchen.jpg"); -->
+  <script>
+    // 1) Define both images
+    const LOW_SRC = "../../../images/Thumbnail/Apartments/Penthouse/Kitchen.webp";
+    const HIGH_SRC = "../../../images/Apartments/Penthouse/Kitchen.jpg";
+
+    const imageContainer = document.querySelector(".image-container");
+
+    // 2) Create panoramas
+    const panoLow = new PANOLENS.ImagePanorama(LOW_SRC);
+    const panoHigh = new PANOLENS.ImagePanorama(HIGH_SRC);
+
+    // 3) Viewer
+    const viewer = new PANOLENS.Viewer({
+      container: imageContainer,
+      autoRotate: false,
+      autoRotateSpeed: 0.1,
+      controlBar: false,
+      cameraFov: 80
+    });
+
+    // Keep the same initial yaw on both (texture yaw)
+    const TEXTURE_YAW = -Math.PI / 2 + 0; // your existing value
+    panoLow.rotation.y = TEXTURE_YAW;
+    panoHigh.rotation.y = TEXTURE_YAW;
+
+    // Desired tilt DOWN amount (pitch)
+    const TILT_DOWN = Math.PI / 50; // ~16°
+
+    function setInitialViewAndLockPitch() {
+      const controls = viewer.getControl();
+
+      // 1️⃣ Set an initial tilt (optional)
+      const TILT = Math.PI / -40; // ≈ 6° down (use negative for tilt up)
+      controls.rotateUp(-TILT);
+
+      // 2️⃣ Make sure vertical movement is fully free
+      if ('minPolarAngle' in controls && 'maxPolarAngle' in controls) {
+        controls.minPolarAngle = 0;       // straight up
+        controls.maxPolarAngle = Math.PI; // straight down
+      }
+
+      // 3️⃣ Optional: disable panning if you want only rotation
+      if ('enablePan' in controls) controls.enablePan = false;
+    }
+
+
+    // Apply same camera view when each pano becomes active
+    panoLow.addEventListener('enter', setInitialViewAndLockPitch);
+    panoHigh.addEventListener('enter', setInitialViewAndLockPitch);
+
+    // Start with low; add both to viewer for smooth swap
+    viewer.add(panoLow);
+    viewer.add(panoHigh);
+    viewer.setPanorama(panoLow);
+
+    // Preload + swap high-res when ready
+    panoLow.addEventListener("load", () => {
+      panoHigh.addEventListener("load", () => {
+        viewer.setPanorama(panoHigh, 600); // fade swap
+        console.log("✅ Swapped to high-res panorama");
+      });
+      panoHigh.load();
+    });
+
+    panoHigh.addEventListener("error", (e) => {
+      console.warn("⚠️ Failed to load high-res:", e);
+    });
+  </script>
+  <script src="../../../JS/VideoPlayer.js"></script>
+  <script src="../../../JS/Disbale-Inspect.js"></script>
+  <script src="../../../JS/Image_Loader.js"></script>
+</body>
+
+</html>

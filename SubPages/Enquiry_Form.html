@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Request Callback</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f0f10;
+            /* page bg */
+            --panel: #1a1b1e;
+            /* card bg */
+            --panel-2: #111214;
+            /* outer shell */
+            --muted: #a7a7ab;
+            /* muted text */
+            --text: #f2f2f3;
+            /* main text */
+            --line: #2a2c31;
+            /* hairlines */
+            --input: #e9eaed;
+            /* input bg */
+            --input-text: #0f0f11;
+            /* input text */
+            --accent: #ff7a1a;
+            /* orange CTA */
+            --accent-press: #ff6a00;
+            /* pressed */
+            --link: #f7901e;
+            /* link */
+            --placeholder: #b9bcc4;
+            /* placeholder */
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, #0f0f10 0%, #141519 100%);
+            color: var(--text);
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+        }
+
+        .modal {
+            width: min(1040px, 100%);
+            background: var(--panel);
+            border: 1px solid #24262a;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .45);
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 28px 32px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .modal-title {
+            font-weight: 700;
+            font-size: 26px;
+            letter-spacing: .2px
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 18px;
+            top: 18px;
+            display: grid;
+            place-items: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            background: #141417;
+            color: #d7d7db;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            background: #17181b
+        }
+
+        .modal-body {
+            padding: 18px 24px 24px
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            gap: 20px;
+        }
+
+        /* LEFT SIDE */
+        .left {
+            display: flex;
+            flex-direction: column;
+            gap: 16px
+        }
+
+        .media {
+            background: #d7d9dd;
+            border-radius: 14px;
+            height: 260px;
+            display: grid;
+            place-items: center;
+            color: #5a5d66;
+            font-weight: 600;
+        }
+
+        .prop-meta {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        .prop-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 4px 2px 10px
+        }
+
+        .prop-title h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .prop-title .unit {
+            font-weight: 700
+        }
+
+        .specs {
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 10px 2px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .row:last-child {
+            border-bottom: none
+        }
+
+        .label {
+            color: #bfc3ca;
+            font-size: 14px
+        }
+
+        .value {
+            font-weight: 600
+        }
+
+        .agree {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 8px;
+            color: #d7d7dc;
+            font-size: 14px
+        }
+
+        .agree a {
+            color: var(--link);
+            text-decoration: underline;
+            text-underline-offset: 2px
+        }
+
+        .agree input {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 5px;
+            border: 1.4px solid #3a3d44;
+            background: #101114;
+            display: grid;
+            place-items: center;
+            margin-top: 2px;
+            cursor: pointer
+        }
+
+        .agree input:checked {
+            background: var(--accent);
+            border-color: var(--accent)
+        }
+
+        /* RIGHT SIDE */
+        .form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px
+        }
+
+        .two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px
+        }
+
+        .input,
+        .select,
+        .phone {
+            width: 100%;
+            background: var(--input);
+            border: 1px solid #cfd2d8;
+            border-radius: 12px;
+            padding: 14px 14px;
+            font-size: 16px;
+            color: var(--input-text);
+        }
+
+        .input::placeholder {
+            color: var(--placeholder)
+        }
+
+        .select {
+            appearance: none;
+            cursor: pointer;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M7 10l5 5 5-5" fill="none" stroke="%23555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px
+        }
+
+        .phone {
+            display: flex;
+            padding: 0
+        }
+
+        .phone select {
+            appearance: none;
+            border: none;
+            border-right: 1px solid #cfd2d8;
+            padding: 0 12px;
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+            background: transparent;
+            font-size: 16px;
+            color: #3a3a3f;
+            min-width: 86px
+        }
+
+        .phone input {
+            flex: 1;
+            border: none;
+            padding: 14px 12px 14px 12px;
+            background: transparent;
+            font-size: 16px;
+            color: var(--input-text)
+        }
+
+        .phone select:focus,
+        .phone input:focus,
+        .input:focus,
+        .select:focus {
+            outline: 2px solid #9ecbff;
+            outline-offset: 0
+        }
+
+        .submit {
+            width: 100%;
+            border: none;
+            border-radius: 14px;
+            background: var(--accent);
+            color: #111;
+            padding: 16px 18px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-top: 6px;
+            cursor: pointer
+        }
+
+        .submit:hover {
+            background: var(--accent-press)
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 960px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+
+            .media {
+                height: 220px
+            }
+        }
+
+        @media (max-width: 560px) {
+            .two {
+                grid-template-columns: 1fr
+            }
+
+            .modal {
+                border-radius: 18px
+            }
+
+            .modal-title {
+                font-size: 22px
+            }
+
+            .media {
+                height: 180px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="modal" role="dialog" aria-labelledby="title">
+        <div class="modal-header">
+            <div id="title" class="modal-title">Request Callback</div>
+            <button class="modal-close" aria-label="Close" title="Close"
+                onclick="alert('Hook up to close modal in your app')">✕</button>
+        </div>
+        <div class="modal-body">
+            <div class="grid">
+                <!-- LEFT -->
+                <aside class="left">
+                    <div class="media">Image / Plan Placeholder</div>
+                    <div class="prop-meta">Floor 15</div>
+                    <div class="prop-title">
+                        <h3>3 Bedroom Apartment</h3>
+                        <div class="unit">Unit 15-05</div>
+                    </div>
+                    <div class="specs">
+                        <div class="row">
+                            <div class="label">Bedrooms</div>
+                            <div class="value">3</div>
+                        </div>
+                        <div class="row">
+                            <div class="label">Total Area</div>
+                            <div class="value">157.38 m²</div>
+                        </div>
+                        <div class="row">
+                            <div class="label">Down Payment</div>
+                            <div class="value">5%</div>
+                        </div>
+                        <div class="row">
+                            <div class="label">Payment Plan</div>
+                            <div class="value">50-50</div>
+                        </div>
+                    </div>
+
+                    <label class="agree">
+                        <input type="checkbox" id="agree" />
+                        <span>I agree to the <a href="#">Privacy Policy</a> and <a href="#">Terms and
+                                Conditions</a>.</span>
+                    </label>
+                </aside>
+
+                <!-- RIGHT -->
+                <form class="form" id="enquiryForm" novalidate>
+                    <div class="two">
+                        <input class="input" name="firstName" placeholder="First Name" required />
+                        <input class="input" name="lastName" placeholder="Last Name" required />
+                    </div>
+
+                    <select class="select" name="residency" required>
+                        <option value="" disabled selected>Residency</option>
+                        <option>Resident</option>
+                        <option>Non-Resident</option>
+                        <option>Tourist</option>
+                    </select>
+
+                    <div class="phone">
+                        <select name="dialCode" aria-label="Country Code">
+                            <option>+971</option>
+                            <option>+91</option>
+                            <option>+44</option>
+                            <option>+1</option>
+                        </select>
+                        <input type="tel" name="phone" placeholder="Phone Number" required />
+                    </div>
+
+                    <input class="input" type="email" name="email" placeholder="Email Address" required />
+
+                    <select class="select" name="nationality" required>
+                        <option value="" disabled selected>Nationality</option>
+                        <option>Indian</option>
+                        <option>Emirati</option>
+                        <option>British</option>
+                        <option>Other</option>
+                    </select>
+
+                    <select class="select" name="language" required>
+                        <option value="" disabled selected>Preferred Language</option>
+                        <option>English</option>
+                        <option>Arabic</option>
+                        <option>Hindi</option>
+                    </select>
+
+                    <button class="submit" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('enquiryForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const agreed = document.getElementById('agree').checked;
+            if (!agreed) {
+                alert('Please agree to the Privacy Policy and Terms & Conditions.');
+                return;
+            }
+            const data = Object.fromEntries(new FormData(form).entries());
+            console.log('Form data', data);
+            alert('Thanks! We\'ve received your request.');
+            form.reset();
+            document.getElementById('agree').checked = false;
+        });
+    </script>
+</body>
+
+</html>

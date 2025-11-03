@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Request Callback</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --panel: #1a1b1e;
+            --text: #f2f2f3;
+            --muted: #b9bcc4;
+            --line: #2a2c31;
+            --input: #e9eaed;
+            --input-text: #0f0f11;
+            --accent: #ff7a1a;
+            --accent-press: #ff6a00;
+            --link: #f7901e;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+            color: var(--text);
+        }
+
+        /* ==== Background Image with Blur ==== */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url("../images/Thumbnail/Background.png") center/cover no-repeat fixed;
+            filter: blur(10px);
+            transform: scale(1.06);
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .35);
+            z-index: -1;
+        }
+
+        /* ==== Button to open modal ==== */
+        .open-btn {
+            background: var(--accent);
+            color: #111;
+            font-weight: 700;
+            font-size: 18px;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            transition: background .2s ease, transform .15s ease;
+        }
+
+        .open-btn:hover {
+            background: var(--accent-press);
+            transform: translateY(-2px);
+        }
+
+        /* ==== Overlay ==== */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, .55);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 999;
+        }
+
+        /* ==== Modal ==== */
+        .modal {
+            width: min(560px, 94vw);
+            background: rgba(26, 27, 30, .92);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+            position: relative;
+            animation: fadeUp .25s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 16px 16px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .title {
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .close {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #141417;
+            color: #d7d7db;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            background: #191a1e;
+        }
+
+        .modal-body {
+            padding: 12px 16px 16px;
+        }
+
+        /* ==== Form ==== */
+        .form {
+            display: grid;
+            gap: 10px;
+        }
+
+        .two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .input,
+        .select,
+        .phone {
+            width: 100%;
+            background: var(--input);
+            border: 1px solid #cfd2d8;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 15px;
+            color: var(--input-text);
+        }
+
+        .input::placeholder {
+            color: var(--muted);
+        }
+
+        .select {
+            appearance: none;
+            cursor: pointer;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M7 10l5 5 5-5" fill="none" stroke="%23555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+
+        .phone {
+            display: flex;
+            padding: 0;
+        }
+
+        .phone select {
+            appearance: none;
+            border: none;
+            border-right: 1px solid #cfd2d8;
+            padding: 0 10px;
+            min-width: 84px;
+            background: transparent;
+            color: #3a3a3f;
+        }
+
+        .phone input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 12px;
+        }
+
+        .agree {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 13px;
+            color: #d7d7db;
+        }
+
+        .agree a {
+            color: var(--link);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .submit {
+            margin-top: 4px;
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-weight: 700;
+            font-size: 16px;
+            background: var(--accent);
+            color: #111;
+            cursor: pointer;
+        }
+
+        .submit:hover {
+            background: var(--accent-press);
+        }
+
+        @media (max-width:560px) {
+            .two {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Open Button -->
+    <button class="open-btn" id="openEnquiry">Request Callback</button>
+
+    <!-- Enquiry Modal -->
+    <div class="overlay" id="enquiryOverlay" aria-hidden="true">
+        <div class="modal" role="dialog" aria-labelledby="title">
+            <div class="modal-header">
+                <div id="title" class="title">Request Callback</div>
+                <button class="close" id="closeBtn" aria-label="Close">✕</button>
+            </div>
+
+            <div class="modal-body">
+                <form id="enquiryForm" class="form" novalidate>
+                    <div class="two">
+                        <input class="input" name="firstName" placeholder="First Name" required />
+                        <input class="input" name="lastName" placeholder="Last Name" required />
+                    </div>
+
+                    <input class="input" type="email" name="email" placeholder="Email Address" required />
+
+                    <div class="phone">
+                        <select name="dialCode" aria-label="Country Code">
+                            <option>+971</option>
+                            <option>+91</option>
+                            <option>+44</option>
+                            <option>+1</option>
+                        </select>
+                        <input type="tel" name="phone" placeholder="Phone Number" required />
+                    </div>
+
+                    <select class="select" name="language" required>
+                        <option value="" disabled selected>Preferred Language</option>
+                        <option>English</option>
+                        <option>Arabic</option>
+                        <option>Hindi</option>
+                    </select>
+
+                    <label class="agree">
+                        <input type="checkbox" id="agree" />
+                        <span>I agree to the <a href="#">Privacy Policy</a> and <a href="#">Terms &
+                                Conditions</a>.</span>
+                    </label>
+
+                    <button class="submit" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const openBtn = document.getElementById('openEnquiry');
+        const overlay = document.getElementById('enquiryOverlay');
+        const closeBtn = document.getElementById('closeBtn');
+        const form = document.getElementById('enquiryForm');
+
+        openBtn.addEventListener('click', () => {
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', e => {
+            if (!e.target.closest('.modal')) closeModal();
+        });
+
+        function closeModal() {
+            overlay.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // Form Submit
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            if (!document.getElementById('agree').checked) {
+                alert('Please agree to the Privacy Policy and Terms & Conditions.');
+                return;
+            }
+            const data = Object.fromEntries(new FormData(form).entries());
+            console.log('Form data', data);
+            alert("Thanks! We've received your request.");
+            form.reset();
+            document.getElementById('agree').checked = false;
+            closeModal();
+        });
+    </script>
+</body>
+
+</html>

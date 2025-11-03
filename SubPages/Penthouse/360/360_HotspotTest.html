@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+
+<body>
+  <button class="close-btn" id="closeCard">←</button>
+  <div class="main-container">
+    <div class="image-container"></div>
+  </div>
+  <!-- Bottom Center Panel -->
+  <nav class="jumpbar" role="navigation" aria-label="Quick jumps">
+    <div class="jumpbar-inner">
+      <button class="jumpchip" onclick="location.href='../Lobby_Top_Floor_2.html'">Second Floor</button>
+      <button class="jumpchip" onclick="location.href='Kitchen.html'">Kitchen</button>
+      <button class="jumpchip" onclick="location.href='Room_1.html'">Room 1</button>
+      <button class="jumpchip" onclick="location.href='Room_2.html'">Room 2</button>
+      <button class="jumpchip" onclick="location.href='Stair.html'">Stair</button>
+      <!-- add more as you like -->
+    </div>
+  </nav>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"
+    integrity="sha512-uWKImujbh9CwNa8Eey5s8vlHDB4o1HhrVszkympkm5ciYTnUEQv3t4QHU02CUqPtdKTg62FsHo12x63q6u0wmg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="../../../JS/panolens.min.js"></script>
+
+  <script>const panoramaImage = new PANOLENS.ImagePanorama("../../../images/Apparments/Penthouse/Lobby.jpg");
+    const imageContainer = document.querySelector(".image-container");
+
+    panoramaImage.rotation.y = -Math.PI / 2 + -.1;
+
+    const viewer = new PANOLENS.Viewer({
+      container: imageContainer,
+      autoRotate: false,
+      autoRotateSpeed: 0.1,
+      controlBar: false,
+      cameraFov: 80,
+    });
+
+    viewer.add(panoramaImage);
+  </script>
+  <script>
+    // Draw a pill with text onto a canvas (bigger = sharper)
+    function makeLabelCanvas(text, w = 512, h = 192) {
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      const ctx = c.getContext('2d');
+
+      // background pill
+      const r = 40;
+      ctx.fillStyle = 'rgba(28,28,28,0.92)';
+      ctx.shadowColor = 'rgba(0,0,0,0.35)';
+      ctx.shadowBlur = 14;
+      roundRect(ctx, 16, 16, w - 32, h - 32, r);
+      ctx.fill();
+
+      // text
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = '#fff';
+      ctx.font = '700 56px system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      // subtle stroke for contrast on bright scenes
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+      ctx.strokeText(text, w / 2, h / 2);
+      ctx.fillText(text, w / 2, h / 2);
+
+      return c;
+
+      function roundRect(ctx, x, y, w, h, r) {
+        r = Math.min(r, w / 2, h / 2);
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+      }
+    }
+
+    // yaw/pitch (deg) -> position on the panorama sphere
+    function placeByYawPitch(spot, yawDeg, pitchDeg, radius = 5000) {
+      const yaw = yawDeg * Math.PI / 180;
+      const pitch = pitchDeg * Math.PI / 180;
+      const phi = Math.PI / 2 - pitch;
+      const theta = yaw;
+      spot.position.setFromSphericalCoords(radius, phi, theta);
+    }
+
+    // Make an Infospot that uses our canvas texture (with text)
+    function makeLabelHotspot({ yaw, pitch, text, href, size = 700 }) {
+      // build texture
+      const tex = new THREE.CanvasTexture(makeLabelCanvas(text));
+      tex.generateMipmaps = false;                 // keep crisp
+      tex.minFilter = THREE.LinearFilter;
+      tex.magFilter = THREE.LinearFilter;
+      tex.needsUpdate = true;                      // IMPORTANT
+
+      // create sprite material explicitly to control flags
+      const material = new THREE.SpriteMaterial({
+        map: tex,
+        transparent: true,
+        depthTest: false,                          // render on top
+        depthWrite: false,
+        opacity: 1
+      });
+
+      // make the Infospot with our material
+      const spot = new PANOLENS.Infospot(size);
+      spot.material = material;
+      spot.material.needsUpdate = true;
+
+      // position
+      placeByYawPitch(spot, yaw, pitch);
+
+      // click action
+      if (href) {
+        spot.cursor = 'pointer';
+        spot.addEventListener('click', () => location.href = href);
+      }
+
+      panoramaImage.add(spot);
+      return spot;
+    }
+
+    // --- Add your hotspots (try bigger size first to confirm visibility) ---
+    makeLabelHotspot({ yaw: -100, pitch: -10, text: 'Kitchen', href: 'Kitchen.html' });
+    makeLabelHotspot({ yaw: 150, pitch: -10, text: 'Room 1', href: 'Room_1.html' });
+    makeLabelHotspot({ yaw: 120, pitch: -6, text: 'Room 2', href: 'Room_2.html' });
+    makeLabelHotspot({ yaw: -50, pitch: -10, text: 'Stair', href: 'Stair.html' });
+
+    // Debug helper: run logAngles() in DevTools to get current yaw/pitch
+    window.logAngles = function () {
+      const c = viewer.getControl();
+      const yaw = c.getAzimuthalAngle() * 180 / Math.PI;
+      const pitch = (Math.PI / 2 - c.getPolarAngle()) * 180 / Math.PI;
+      console.log('yaw°:', yaw.toFixed(1), 'pitch°:', pitch.toFixed(1));
+    };
+  </script>
+
+
+
+
+
+
+
+
+  <script src="../../../JS/Disbale-Inspect.js"></script>
+</body>
+
+</html>
