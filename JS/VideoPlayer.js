@@ -15,43 +15,53 @@ function exitFullscreen() {
     else if (document.msExitFullscreen) document.msExitFullscreen();
 }
 
-// Open overlay and play video fullscreen
+// Detect if device is iPhone
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+// 🔹 Play button click handler
 if (playBtn) {
     playBtn.addEventListener('click', () => {
         overlay.style.display = 'flex';
         requestAnimationFrame(() => overlay.classList.add('active'));
+
+        // ✅ For iPhones, don't requestFullscreen (Safari handles it automatically)
+        if (!isIOS) enterFullscreen(video);
+
         video.play();
-        enterFullscreen(video);
     });
 }
 
-// When video ends → exit fullscreen & close overlay
+// 🔹 When video ends normally
 video.addEventListener('ended', () => {
-    video.pause();
-    video.currentTime = 0;
-    exitFullscreen();
-    overlay.classList.remove('active');
-    setTimeout(() => (overlay.style.display = 'none'), 400);
+    cleanupOverlay();
 });
 
-// 🟢 Detect if fullscreen is exited manually
+// 🔹 When fullscreen is exited manually (for non-iOS)
 document.addEventListener('fullscreenchange', () => {
     if (!document.fullscreenElement) {
-        // If fullscreen is closed while video is playing
-        if (!video.paused) {
-            video.pause();
-        }
-        overlay.classList.remove('active');
-        setTimeout(() => (overlay.style.display = 'none'), 400);
+        cleanupOverlay();
     }
 });
 
-// Click outside video to close early
+// 🔹 🟢 Special fix for iPhones
+video.addEventListener('webkitendfullscreen', () => {
+    console.log('📱 iOS fullscreen ended');
+    cleanupOverlay();
+});
+
+// 🔹 Click outside video closes it early
 overlay.addEventListener('click', (e) => {
     if (e.target === overlay) {
         video.pause();
-        exitFullscreen();
-        overlay.classList.remove('active');
-        setTimeout(() => (overlay.style.display = 'none'), 400);
+        cleanupOverlay();
     }
 });
+
+// 🔹 Central cleanup function
+function cleanupOverlay() {
+    video.pause();
+    video.currentTime = 0;
+    overlay.classList.remove('active');
+    setTimeout(() => (overlay.style.display = 'none'), 400);
+    exitFullscreen();
+}
