@@ -6,6 +6,48 @@ body {
 
 
 
+
+/* Floor hover tooltip */
+.floortip {
+    position: fixed;
+    /* place by viewport coords */
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -100%);
+    /* center horizontally, sit above */
+    padding: 6px 10px;
+    font: 600 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+    /* never blocks clicks */
+    opacity: 0;
+    z-index: 12050;
+    /* above your overlays */
+    transition: opacity .15s ease;
+    white-space: nowrap;
+}
+
+/* small arrow */
+.floortip::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    width: 0;
+    height: 0;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid rgba(0, 0, 0, 0.75);
+}
+
+.floortip.is-visible {
+    opacity: 1;
+}
+
 /* quick, soft placeholder look */
 .blur-up {
     filter: blur(10px);

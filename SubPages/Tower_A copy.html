@@ -6,17 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MDB Lutyen</title>
     <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../JS/Notification/ControllerCSS.css">
     <style>
-
+        @media (max-width: 600px) {
+            .Front {
+                position: fixed;
+                /* make .Front itself the viewport-anchored box */
+                top: 55%;
+                left: 50%;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <div id="ui-hint" class="ui-hint" aria-live="polite" role="status">
+        <!-- shown on mouse/trackpad devices -->
+        <div class="ui-hint__row ui-hint__desktop">
+            <!-- mouse icon (inline SVG) -->
+            <svg width="18" height="24" viewBox="0 0 18 24" aria-hidden="true">
+                <path d="M9 1c3.9 0 7 3.1 7 7v8c0 3.9-3.1 7-7 7s-7-3.1-7-7V8c0-3.9 3.1-7 7-7z" fill="white"
+                    opacity=".18" />
+                <rect x="8" y="4" width="2" height="5" rx="1" fill="white" />
+                <rect x="5" y="10" width="8" height="9" rx="4" fill="white" opacity=".4" />
+            </svg>
+            <span>Click on Floor To See Aparments</span>
+        </div>
+
+        <!-- shown on touch devices -->
+        <div class="ui-hint__row ui-hint__touch">
+            <!-- finger icon (inline SVG) -->
+            <svg width="18" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                    d="M12 2a4 4 0 014 4v4h1.2a2.8 2.8 0 012.8 2.8V16c0 3.3-2.7 6-6 6H9.5A5.5 5.5 0 014 16.5V11a3 3 0 016 0v3h1V6a4 4 0 011-2.7z"
+                    fill="white" opacity=".28" />
+                <rect x="11" y="5" width="2" height="9" rx="1" fill="white" />
+            </svg>
+            <span>Click on Tower's To Select Floor</span>
+        </div>
+    </div>
     <button class="close-btn" id="closeCard">←</button>
     <div id="infoCard" class="info-card">
         <div class="info-content">
 
-            <h2 id="modalTitle">Tower_A</h2>
+            <h2 id="modalTitle">Tower A</h2>
 
             <!-- <div class="image-placeholder">
                 <img src="images/Tower_A.jpg" alt="Tower A" />
@@ -26,14 +59,13 @@
             <button class="explore-btn" id="navigateButton">Explore</button>
             <button class="enquiry-btn" id="openEnquiry">Enquiry Call</button>
 
-
-
         </div>
     </div>
-    <button class="enquiry-btn" id="openEnquiry">Enquiry</button>
     <div class="Front">
         <div class="image-wrapper">
-            <img src="../images/Tower_A.jpg" alt="Tower_2">
+            <!-- <img src="../images/Tower_A.jpg" alt="Tower_2"> -->
+            <img id="mainImage" src="../images/Thumbnail/Tower_A.webp" data-full="../images/Tower_A.jpg" alt="Tower_2"
+                fetchpriority="high" decoding="async" width="3840" height="5830" class="blur-up" />
             <div class="Cutout">
                 <svg viewBox="0 0 3840 5830" xmlns="http://www.w3.org/2000/svg">
                     <path id="Floor_1" data-link="3BHK/Lobby_Top.html"
@@ -107,8 +139,6 @@
                             <input class="input" name="lastName" placeholder="Last Name" required />
                         </div>
 
-                        <input class="input" type="email" name="email" placeholder="Email Address" required />
-
                         <div class="phone">
                             <select name="dialCode" aria-label="Country Code">
                                 <option>+91</option>
@@ -119,12 +149,9 @@
                             <input type="tel" name="phone" placeholder="Phone Number" required />
                         </div>
 
-                        <select class="select" name="language" required>
-                            <option value="" disabled selected>Preferred Language</option>
-                            <option>English</option>
-                            <option>Arabic</option>
-                            <option>Hindi</option>
-                        </select>
+                        <input class="input" type="email" name="email" placeholder="Email Address" required />
+
+
 
                         <label class="agree">
                             <input type="checkbox" id="agree" />
@@ -138,15 +165,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
 
     <!-- Bottom Center Panel -->
     <nav class="jumpbar" role="navigation" aria-label="Quick jumps">
@@ -191,7 +209,6 @@
             hideOverlay();
         });
     </script>
-
 
 
     <script>
@@ -333,7 +350,7 @@
             });
         });
     </script>
-
+    <script src="../JS/Notification//Controller_Single.js"></script>
 
     <script>
         if (closeCard) {
@@ -343,17 +360,8 @@
         }
     </script>
     <script src="../JS/Disbale-Inspect.js"></script>
-    <link rel="stylesheet" href="../JS/towerpins.css">
-    <script src="../JS/TowerPins.js"></script>
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            initTowerPins({
-                svgSelector: '.Cutout svg',   // your SVG selector
-                layerSelector: '#hsLayer',    // the overlay layer
-                viewBox: [3840, 5830]         // your SVG viewBox size
-            });
-        });
-    </script>
+    <script src="../JS/Image_Loader.js"></script>
+
 </body>
 
 </html>
