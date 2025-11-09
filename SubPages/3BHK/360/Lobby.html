@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MDB Lutyen</title>
   <link rel="stylesheet" href="../../../styles.css" />
+  <link rel="stylesheet" href="../../../JS/CSS/RequestStyle.css">
 </head>
 
 <body>
@@ -24,14 +25,54 @@
       <button class="jumpchip" onclick="location.href='Room_2.html'">Room 2</button>
       <button class="jumpchip" onclick="location.href='Room_3.html'">Room 3</button>
       <button class="jumpchip" onclick="location.href='Dinning.html'">Dinning Table</button>
+      <button class="jumpchip is-accent" id="playWalkthroughBtn">Request Call Back</button>
       <!-- add more as you like -->
     </div>
   </nav>
   <div id="videoOverlay" class="video-overlay">
     <video id="walkthroughVideo" controls preload="none">
-      <source src="../../Video/Lutyen_Lobby.mp4" type="video/mp4">
+      <source src="../../../Video/Lutyen Lobby.webm" type="video/mp4">
       Your browser does not support the video tag.
     </video>
+  </div>
+  <div class="callback-enquiry">
+    <div class="callback-overlay" id="callbackOverlay" aria-hidden="true">
+      <div class="callback-modal" role="dialog" aria-labelledby="callbackTitle">
+        <div class="callback-modal-header">
+          <div id="callbackTitle" class="callback-title">Request Callback</div>
+          <button class="callback-close" id="callbackCloseBtn" aria-label="Close">✕</button>
+        </div>
+
+        <div class="callback-modal-body">
+          <form id="callbackForm" class="callback-form" novalidate>
+            <div class="callback-two">
+              <input class="callback-input" name="firstName" placeholder="First Name" required />
+              <input class="callback-input" name="lastName" placeholder="Last Name" required />
+            </div>
+
+            <div class="callback-phone">
+              <select name="dialCode" aria-label="Country Code">
+                <option>+91</option>
+                <option>+971</option>
+                <option>+44</option>
+                <option>+1</option>
+              </select>
+              <input type="tel" name="phone" placeholder="Phone Number" required />
+            </div>
+
+            <input class="callback-input" type="email" name="email" placeholder="Email Address" required />
+
+            <label class="callback-agree">
+              <input type="checkbox" id="callbackAgree" />
+              <span>I agree to the <a href="#">Privacy Policy</a> and
+                <a href="#">Terms & Conditions</a>.</span>
+            </label>
+
+            <button class="callback-submit" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"
     integrity="sha512-uWKImujbh9CwNa8Eey5s8vlHDB4o1HhrVszkympkm5ciYTnUEQv3t4QHU02CUqPtdKTg62FsHo12x63q6u0wmg=="
@@ -112,7 +153,8 @@
       console.warn("⚠️ Failed to load high-res:", e);
     });
   </script>
-  <script src="../../JS/VideoPlayer.js"></script>
+  <script src="../../../JS/TM_Requestbtn.js"></script>
+  <script src="../../../JS/VideoPlayer.js"></script>
 
   <script src="../../../JS/Disbale-Inspect.js"></script>
   <script src="../../../JS/Image_Loader.js"></script>
