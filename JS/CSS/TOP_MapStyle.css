@@ -1,0 +1,65 @@
+.callback-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}
+
+.callback-modal {
+    background: #fff;
+    border-radius: 12px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.callback-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #c49a6c;
+    color: #fff;
+    padding: 12px 20px;
+}
+
+.callback-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.callback-modal-body {
+    padding: 20px;
+}
+
+.callback-input,
+.callback-phone select,
+.callback-phone input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.callback-submit {
+    width: 100%;
+    padding: 12px;
+    background: #c49a6c;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.callback-submit:hover {
+    background: #d8a86e;
+}
