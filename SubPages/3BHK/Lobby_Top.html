@@ -346,19 +346,23 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const closeCard = document.getElementById("closeCard");
+        document.addEventListener('DOMContentLoaded', () => {
+            const closeCard = document.getElementById('closeCard');
+            if (!closeCard) return;
 
-            if (closeCard) {
-                closeCard.addEventListener("click", () => {
-                    // 🔹 Change this path to wherever you want the button to take you
-                    window.location.href = "../../SubPages/Tower_A.html";
-                    // Example: "../index.html" or "../SubPages/Tower_A.html"
-                });
-            }
+            closeCard.addEventListener('click', () => {
+                const tower = sessionStorage.getItem('lastTower') || 'A';
+                const to = tower === 'B'
+                    ? '../../SubPages/Tower_B.html'
+                    : '../../SubPages/Tower_A.html';
+
+                window.location.href = to;
+            });
         });
     </script>
-    
+
+
+
 
     <script src="../../JS/TM_Requestbtn.js"></script>
     <script src="../../JS/VideoPlayer.js"></script>

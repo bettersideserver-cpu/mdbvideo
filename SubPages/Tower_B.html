@@ -22,6 +22,8 @@
 
 <body>
 
+    <script>sessionStorage.setItem('lastTower', 'B');</script>
+
     <div id="ui-hint" class="ui-hint" aria-live="polite" role="status">
         <!-- shown on mouse/trackpad devices -->
         <div class="ui-hint__row ui-hint__desktop">
@@ -372,6 +374,7 @@
         });
     </script>
     <script src="../JS/Notification/Controller_Single.js"></script>
+
     <script>
         if (closeCard) {
             closeCard.addEventListener('click', () => {
