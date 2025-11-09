@@ -153,6 +153,19 @@
       console.warn("⚠️ Failed to load high-res:", e);
     });
   </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const closeCard = document.getElementById("closeCard");
+
+      if (closeCard) {
+        closeCard.addEventListener("click", () => {
+          // 🔹 Change this path to wherever you want the button to take you
+          window.location.href = "../../../SubPages/3BHK/Lobby_Top.html";
+          // Example: "../index.html" or "../SubPages/Tower_A.html"
+        });
+      }
+    });
+  </script>
   <script src="../../../JS/TM_Requestbtn.js"></script>
   <script src="../../../JS/VideoPlayer.js"></script>
 
