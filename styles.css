@@ -487,6 +487,34 @@ body {
     }
 }
 
+/* Button loading state */
+.submit[aria-busy="true"] {
+    position: relative;
+    pointer-events: none;
+    opacity: .8;
+}
+
+.submit[aria-busy="true"]::after {
+    content: "";
+    position: absolute;
+    right: 12px;
+    /* keep some space from text */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    animation: spin .7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
 
 
 .video-overlay {
