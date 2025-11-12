@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
   <link rel="stylesheet" href="../../../styles.css" />
+  <link rel="stylesheet" href="../../../JS/CSS/RequestStyle.css">
 </head>
 
 <body>
@@ -22,9 +23,56 @@
       <button class="jumpchip" onclick="location.href='Room_1.html'">Room 1</button>
       <button class="jumpchip" onclick="location.href='Room_2.html'">Room 2</button>
       <button class="jumpchip" onclick="location.href='Stair.html'">Stair</button>
+      <button class="jumpchip is-accent" id="openEnquiry">📞 Request Call Back</button>
       <!-- add more as you like -->
     </div>
   </nav>
+  <div id="videoOverlay" class="video-overlay">
+    <video id="walkthroughVideo" controls preload="none">
+      <source src="../../../Video/Lutyen Lobby.webm" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <!-- Request Callback Modal -->
+  <div class="callback-enquiry">
+    <div class="callback-overlay" id="enquiryOverlay" aria-hidden="true">
+      <div class="callback-modal modal" role="dialog" aria-labelledby="callbackTitle">
+        <div class="callback-modal-header">
+          <div id="callbackTitle" class="callback-title">Request Callback</div>
+          <button class="callback-close" id="closeBtn" aria-label="Close">✕</button>
+        </div>
+
+        <div class="callback-modal-body">
+          <form id="enquiryForm" class="callback-form" novalidate>
+            <div class="callback-two">
+              <input class="callback-input" name="firstName" placeholder="First Name" required />
+              <input class="callback-input" name="lastName" placeholder="Last Name" required />
+            </div>
+
+            <div class="callback-phone">
+              <select name="dialCode" aria-label="Country Code">
+                <option>+91</option>
+                <option>+971</option>
+                <option>+44</option>
+                <option>+1</option>
+              </select>
+              <input type="tel" name="phone" placeholder="Phone Number" required />
+            </div>
+
+            <input class="callback-input" type="email" name="email" placeholder="Email Address" required />
+
+            <label class="callback-agree">
+              <input type="checkbox" id="agree" />
+              <span>I agree to the <a href="#">Privacy Policy</a> and
+                <a href="#">Terms & Conditions</a>.</span>
+            </label>
+
+            <button class="submit" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"
     integrity="sha512-uWKImujbh9CwNa8Eey5s8vlHDB4o1HhrVszkympkm5ciYTnUEQv3t4QHU02CUqPtdKTg62FsHo12x63q6u0wmg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
