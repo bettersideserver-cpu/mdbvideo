@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MDB Lutyen</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>MDB The Lutyens Flats For Sale in MOHALI | Fouji Colony | Banur | Punjab</title>
+    <meta name="description" content="The Lutyens Luxury Flats Project By MDB Group. Offering 3Bhk, 3+1Bhk luxury apartments , Flats, Homes for sale | Download Brochure /">
+    <link rel=" stylesheet" href="styles.css">
     <link rel="stylesheet" href="JS/towerpins.css">
     <link rel="stylesheet" href="JS/Notification/ControllerCSS.css">
     <style>
@@ -75,7 +76,7 @@
             background: rgba(10, 10, 10, .45);
             /* keep slight tint so blur is visible */
             backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            /* -webkit-backdrop-filter: blur(14px); */
         }
 
         /* CONTENT: no box, no background */
@@ -153,8 +154,6 @@
     <div id="splash" class="splash" aria-live="polite" role="status">
         <div class="splash__backdrop"></div>
         <div class="splash__content" role="img" aria-label="Powered by BetterSide">
-            <!-- TODO: replace src with your logo path -->
-            <!-- <img class="splash__logo splash__logo--stroke" src="images/Thumbnail/Icon/MDB-logo.png" alt="Logo"> -->
             <div class="splash__text">Powered by <strong>BetterSide.in</strong></div>
         </div>
     </div>
@@ -575,62 +574,30 @@
         });
     </script>
     <script>
-        (function () {
-            const VISIBLE_MS = 2000; // show time (~2s)
-            const FADE_MS = 600;  // must match CSS transition
+        document.addEventListener("DOMContentLoaded", () => {
+            const splash = document.getElementById("splash");
+            if (!splash) return;
 
-            // Keys to block while splash is active (scrolling, tabbing, pressing)
-            const BLOCKED_KEYS = new Set([
-                'Tab', 'Enter', ' ', 'Spacebar', 'Escape', 'Esc',
-                'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight',
-                'PageUp', 'PageDown', 'Home', 'End'
-            ]);
+            // lock scroll while splash is visible
+            document.body.classList.add("splash-active");
 
-            let keyBlocker;
+            // how long splash shows (ms)
+            const SHOW_MS = 2000;
+            const FADE_MS = 600; // must match CSS transition
 
-            function enableLock() {
-                document.body.classList.add('splash-active');
+            setTimeout(() => {
+                // start fade-out
+                splash.classList.add("is-hidden");
 
-                // Block keyboard interactions while splash is active
-                keyBlocker = (e) => {
-                    if (BLOCKED_KEYS.has(e.key)) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    }
-                };
-                document.addEventListener('keydown', keyBlocker, true);
-                document.addEventListener('keypress', keyBlocker, true);
-            }
-
-            function disableLock() {
-                document.body.classList.remove('splash-active');
-                if (keyBlocker) {
-                    document.removeEventListener('keydown', keyBlocker, true);
-                    document.removeEventListener('keypress', keyBlocker, true);
-                    keyBlocker = null;
-                }
-            }
-
-            window.addEventListener('load', () => {
-                const splash = document.getElementById('splash');
-                if (!splash) return;
-
-                enableLock(); // lock interactions immediately
-
-                const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                const showFor = reduce ? 200 : VISIBLE_MS;
-                const fadeFor = reduce ? 200 : FADE_MS;
-
+                // after fade, remove overlay and unlock scroll
                 setTimeout(() => {
-                    splash.classList.add('is-hidden');      // start fade
-                    setTimeout(() => {
-                        splash.remove();                      // remove overlay
-                        disableLock();                        // unlock page
-                    }, fadeFor);
-                }, showFor);
-            });
-        })();
+                    splash.remove();
+                    document.body.classList.remove("splash-active");
+                }, FADE_MS);
+            }, SHOW_MS);
+        });
     </script>
+
 
 
 

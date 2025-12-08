@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MDB Lutyen</title>
-    <link rel="stylesheet" href="../../JS/CSS/RequestStyle.css">
+    <link rel="stylesheet" href="./../../JS/CSS/RequestStyle.css">
     <style>
         body {
             margin: 0;
@@ -264,8 +264,8 @@
     <button class="close-btn2" id="closeCard">←</button>
     <div class="lobby-top">
         <div class="content-wrapper">
-            <img id="mainImage" src="../../images/Thumbnail/Apartments/Penthouse/TOP/Floor_1.webp"
-                data-full="../../images/Apartments/Penthouse/TOP/Floor_1.jpg" alt="Home" fetchpriority="high"
+            <img id="mainImage" src="./../../images/Thumbnail/Apartments/Penthouse/TOP/Floor_1.webp"
+                data-full="./../../images/Apartments/Penthouse/TOP/Floor_1.jpg" alt="Home" fetchpriority="high"
                 decoding="async" width="3840" height="5830" class="blur-up" />
             <button class="touch-button button1" onclick="window.location.href='360/Kitchen.html'">
                 Kitchen
@@ -300,7 +300,7 @@
     </nav>
     <div id="videoOverlay" class="video-overlay">
         <video id="walkthroughVideo" controls preload="none">
-            <source src="../../Video/Penthouse V02.webm" type="video/mp4">
+            <source src="./../../Video/Penthouse V02.webm" type="video/webm">
             Your browser does not support the video tag.
         </video>
     </div>
@@ -364,19 +364,19 @@
             closeCard.addEventListener('click', () => {
                 const tower = sessionStorage.getItem('lastTower') || 'A';
                 const to = tower === 'B'
-                    ? '../../SubPages/Tower_B.html'
-                    : '../../SubPages/Tower_A.html';
+                    ? './../../SubPages/Tower_B.html'
+                    : './../../SubPages/Tower_A.html';
 
                 window.location.href = to;
             });
         });
     </script>
 
-    <script src="../../JS/Enquiry_Data/Enquiry_Data.js"></script>
-    <script src="../../JS/TM_Requestbtn.js"></script>
-    <script src="../../../JS/VideoPlayer.js"></script>
-    <script src="../../JS/Disbale-Inspect.js"></script>
-    <script src="../../JS/Image_Loader.js"></script>
+    <script src="./../../JS/enquiry_data.js"></script>
+    <script src="./../../JS/TM_Requestbtn.js"></script>
+    <script src="./../../JS/VideoPlayer.js"></script>
+    <script src="./../../JS/Disbale-Inspect.js"></script>
+    <script src="./../../JS/Image_Loader.js"></script>
 
 </body>
 
