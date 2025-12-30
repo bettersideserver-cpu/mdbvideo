@@ -175,104 +175,102 @@
             }
         }
 
-/* =========================
+        /* =========================
    CREATIVE TOP HEADER
 ========================= */
 
-.top-header {
-    position: fixed;
-    top: 24px;
-    right: 32px;
-    z-index: 15000;
-    pointer-events: auto;
-}
+        .top-header {
+            position: fixed;
+            top: 24px;
+            right: 32px;
+            z-index: 15000;
+            pointer-events: auto;
+        }
 
-/* Glass container */
-.top-nav {
-    display: flex;
-    gap: 26px;
-    padding: 10px 18px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.08),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.35);
-}
+        /* Glass container */
+        .top-nav {
+            display: flex;
+            gap: 26px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.08),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+        }
 
-/* Links */
-.nav-link {
-    position: relative;
-    font: 600 14px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    color: #1b1b1b;
-    text-decoration: none;
-    letter-spacing: 0.4px;
-    padding: 6px 2px;
-    transition: color 0.25s ease;
-}
+        /* Links */
+        .nav-link {
+            position: relative;
+            font: 600 14px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+            color: #1b1b1b;
+            text-decoration: none;
+            letter-spacing: 0.4px;
+            padding: 6px 2px;
+            transition: color 0.25s ease;
+        }
 
-/* Animated underline */
-.nav-link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 100%;
-    height: 2px;
-    background: #1b1b1b;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-}
+        /* Animated underline */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 100%;
+            height: 2px;
+            background: #1b1b1b;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
 
-/* Hover */
-.nav-link:hover::after {
-    transform: scaleX(1);
-}
+        /* Hover */
+        .nav-link:hover::after {
+            transform: scaleX(1);
+        }
 
-/* Accent tab (Contact) */
-.nav-link.accent {
-    color: #8c1d18;
-}
+        /* Accent tab (Contact) */
+        .nav-link.accent {
+            color: #8c1d18;
+        }
 
-.nav-link.accent::after {
-    background: #8c1d18;
-}
+        .nav-link.accent::after {
+            background: #8c1d18;
+        }
 
-/* Mobile */
-@media (max-width: 600px) {
-    .top-header {
-        top: 14px;
-        right: 14px;
-    }
+        /* Mobile */
+        @media (max-width: 600px) {
+            .top-header {
+                top: 14px;
+                right: 14px;
+            }
 
-    .top-nav {
-        gap: 18px;
-        padding: 8px 14px;
-    }
+            .top-nav {
+                gap: 18px;
+                padding: 8px 14px;
+            }
 
-    .nav-link {
-        font-size: 13px;
-    }
-}
-
-
+            .nav-link {
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 
 <body>
-<!-- Top Right Creative Header -->
-<header class="top-header">
-    <nav class="top-nav">
-        <a href="SubPages/About/About.html" class="nav-link">
-            <span>About</span>
-        </a>
-        <a href="contact.html" class="nav-link accent">
-            <span>Contact</span>
-        </a>
-    </nav>
-</header>
+    <!-- Top Right Creative Header -->
+    <header class="top-header">
+        <nav class="top-nav">
+            <a href="SubPages/About/About.html" class="nav-link">
+                <span>About</span>
+            </a>
+            <a href="SubPages/Contact/contact.html" class="nav-link accent">
+                <span>Contact</span>
+            </a>
+        </nav>
+    </header>
 
 
     <!-- Splash / Welcome Overlay -->
