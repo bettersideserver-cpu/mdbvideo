@@ -1,0 +1,256 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ----first section --- */
+.container{
+  background-position: center;
+    background-image:   radial-gradient(circle at center, rgba(0,0,0,0) 30%, rgba(0,0,0,0.7) 90%), url(images/Image13.jpg);
+    width: auto;
+    height: 700px;
+    
+}
+
+.mbd-image{
+    width: 100px;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+.about{
+  margin-top: 680px;
+    text-align: center;
+}
+
+.color{
+     display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.three{
+    width: 150px;
+   margin-top: 20px;
+}
+
+/* --- first section end ---- */
+
+
+
+
+/* ---second section start--- */
+.second-container{
+    
+    display: flex;
+   
+    justify-content: center;
+}
+
+.second-container-2{
+      
+    display: flex;
+   
+    justify-content: center;
+
+}
+
+.project{
+  
+    margin-top: 250px;
+}
+
+.three-1{
+    margin-top: 15px;
+    width: 130px;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.text-image{
+    margin-top: 100px;
+    
+    display: flex;
+    align-items: center;
+
+  justify-content: center;
+    
+}
+
+
+.lyutens{
+    font-size: 20px;
+}
+.square{
+    width: 600px;
+   margin-left: 70px;
+  
+}
+
+/* 
+--- second section end --- */
+
+
+/* --- Third container start --- */
+
+
+
+.gap{
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.amenities{
+    margin-top: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+}
+
+.living{
+  font-size: 17px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.amenities {
+  padding: 60px 20px;
+}
+
+.cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 40px 90px; 
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  width: 340px;
+  text-align: center;
+  padding: 10px;
+}
+
+.icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.card h3 {
+  margin: 0 0 6px;
+  font-size: 25px;
+  color: #003a5d;
+}
+
+.card p {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.4;
+  color: #000;
+}
+ .house{
+    width: 40px;
+ }
+
+
+ /* --- Third container end --- */
+
+.footer {
+  background-color: #073b5a;
+  color: #ffffff;
+  padding: 60px 80px 25px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+/* Left */
+.footer-left p {
+  max-width: 360px;
+  font-size: 14px;
+  line-height: 1.8;
+  opacity: 0.9;
+}
+
+/* Center & Right */
+.footer-center h4,
+.footer-right h4 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.footer-center ul,
+.footer-right ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-center li,
+.footer-right li {
+  font-size: 14px;
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+
+/* Colored lines */
+.footer-lines {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 40px 0 12px;
+}
+
+.line {
+  width: 40px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.red { background: #e74c3c; }
+.yellow { background: #f1c40f; }
+.green { background: #2ecc71; }
+
+/* Copyright */
+.footer-copy {
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* ✅ Responsive */
+@media (max-width: 900px) {
+  .footer {
+    padding: 40px 30px;
+  }
+
+  .footer-wrapper {
+    flex-direction: column;
+    gap: 35px;
+  }
+
+  .footer-left p {
+    max-width: 100%;
+  }
+}
