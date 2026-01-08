@@ -239,7 +239,7 @@
 
     <nav class="jumpbar" role="navigation" aria-label="Quick jumps">
         <div class="jumpbar-inner">
-            <button class="jumpchip" onclick="location.href='./../index.html'">Home</button>
+            <button class="jumpchip" onclick="location.href='/'">Home</button>
             <button class="jumpchip" onclick="location.href='GodEye/Garden.html'">Garden</button>
             <button class="jumpchip" onclick="location.href='GodEye/SidePath.html'">SidePath</button>
             <button class="jumpchip" onclick="location.href='GodEye/Pool.html'">Pool</button>
@@ -252,14 +252,8 @@
 
     <script src="./../JS/Path_Function.js"></script>
     <script src="./../JS/Notification/Controller_Single.js"></script>
-    <script>
-        const closeCard = document.getElementById('closeCard'); // make sure it's defined
-        if (closeCard) {
-            closeCard.addEventListener('click', () => {
-                window.location.href = "./../index.html"; // always go to index.html
-            });
-        }
-    </script>
+    
+    <script src="./../JS/BackButton.js"></script>
     <script src="./../JS/enquiry_data.js"></script>
     <script src="./../JS/HoverName.js"></script>
     <script src="./../JS/Disbale-Inspect.js"></script>
