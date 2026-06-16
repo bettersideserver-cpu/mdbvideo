@@ -2,780 +2,719 @@
 <html lang="en">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-41MQ29CPWG"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-41MQ29CPWG');
-    </script>
-    <link rel="icon" type="image/ico" href="favicon.ico">
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.mdbthelutyens.in/index.html"
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MDB - The Lutyens</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  ]
-}
-</script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MDB The Lutyens Flats For Sale in MOHALI | Fouji Colony | Banur | Punjab</title>
-    <meta name="keywords"
-        content="MDB The Lutyens Mohali, MDB project in Mohali, luxury apartments in Mohali, 3 BHK flats in Mohali, residential project on Banur Landran Road, luxury flats on Banur Landran Road,luxury flats on Banur Landran Road,high rise apartments in Mohali, premium residential project near IT City Mohali, 3+1 BHK luxury apartments in Mohali, RERA approved residential project in Mohali, best commercial places in Mohali">
-    <meta name="description"
-        content="The Lutyens Luxury Flats Project By MDB Group. Offering 3Bhk, 3+1Bhk luxury apartments , Flats, Homes for sale | Download Brochure /">
-    <link rel=" stylesheet" href="styles.css">
-    <link rel="stylesheet" href="JS/towerpins.css">
-    <link rel="stylesheet" href="JS/Notification/ControllerCSS.css">
-    <style>
-        .mdb {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    body {
+      background: #000;
+      overflow: hidden;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
 
-        .pdf-icon {
-            width: 50px;
-            /* adjust size as needed */
-            height: auto;
-            object-fit: contain;
-        }
+    #c {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+    }
 
-        .fallback-text {
-            margin-left: 6px;
-            font-weight: 600;
-            color: white;
-        }
+    /* ── Loading ── */
+    #loading {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
 
-        .info-card {
-            top: -100px;
-            left: -50px;
-            position: fixed;
-            background-color: transparent;
-            /* No blocking layer */
-            display: none;
-            z-index: 8999;
-            pointer-events: none;
-            /* ❗️ This makes whole container non-interactive except children */
-            transform: scale(.9);
-        }
+    .ring {
+      width: 52px;
+      height: 52px;
+      border: 3px solid rgba(255, 255, 255, 0.07);
+      border-top-color: rgba(80, 160, 255, 0.9);
+      border-radius: 50%;
+      animation: spin 0.85s linear infinite;
+      margin-bottom: 14px;
+    }
 
-        @media (max-width: 600px) {
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
-            .info-card,
-            .info-content {
-                transform: scale(0.7);
-                top: -50px;
-                left: -30px;
-            }
-        }
+    #loading p {
+      color: rgba(100, 180, 255, 0.65);
+      font-size: 11px;
+      letter-spacing: 3px;
+    }
 
-        body.splash-active {
-            overflow: hidden;
-            touch-action: none;
-        }
 
-        /* Splash */
-        .splash {
-            position: fixed;
-            inset: 0;
-            z-index: 14000;
-            display: grid;
-            place-items: center;
-            pointer-events: auto;
-            opacity: 1;
-            transition: opacity .6s ease;
-            /* smoother fade */
-        }
 
-        .splash__backdrop {
-            position: absolute;
-            inset: 0;
-            background: rgba(10, 10, 10, .45);
-            /* keep slight tint so blur is visible */
-            backdrop-filter: blur(14px);
-            /* -webkit-backdrop-filter: blur(14px); */
-        }
+    /* ── Menu button ── */
+    #menu-btn {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      background: rgba(30, 30, 40, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 300;
+      backdrop-filter: blur(12px);
+      transition: background 0.2s;
+    }
 
-        /* CONTENT: no box, no background */
-        .splash__content {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            padding: 0;
-            /* no padding box */
-            background: transparent;
-            /* no box */
-            border-radius: 0;
-            /* no rounded box */
-            box-shadow: none;
-            /* no shadow box */
-            transform: translateY(8px);
-            animation: splash-pop .5s ease forwards;
-            pointer-events: none;
-        }
+    #menu-btn:hover {
+      background: rgba(50, 50, 65, 0.9);
+    }
 
-        .splash__logo {
-            width: 300px;
-            /* bigger logo */
-            height: auto;
-            /* keep aspect */
-            object-fit: contain;
-            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .15));
-            filter: brightness(1.3) drop-shadow(0 4px 10px rgba(0, 0, 0, .15));
-            /* filter:
-                brightness(1.3) contrast(1.1) drop-shadow(0 0 3px rgba(255, 255, 255, 0.35)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.25)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.15)); */
-        }
+    #menu-btn span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+    }
 
-        .splash__text {
-            font: 600 18px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-            color: #fff;
-            letter-spacing: .2px;
-            opacity: .95;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, .35);
-        }
+    /* ── Flag pins ── */
+    .flag-marker {
+      position: fixed;
+      pointer-events: auto;
+      cursor: pointer;
+      transform: translate(-50%, -100%);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: opacity 0.3s;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+    }
 
-        @keyframes splash-pop {
-            from {
-                opacity: 0;
-                transform: translateY(16px) scale(.98);
-            }
+    .pin-icon {
+      width: 36px;
+      height: 48px;
+      transition: transform 0.2s;
+    }
 
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
+    .pin-icon svg {
+      width: 100%;
+      height: 100%;
+    }
 
-        /* Fades whole overlay out */
-        .splash.is-hidden {
-            opacity: 0;
-        }
+    .flag-marker:hover .pin-icon {
+      transform: scale(1.15);
+    }
 
-        @media (prefers-reduced-motion: reduce) {
-            .splash__content {
-                animation: none;
-                transform: none;
-            }
+    .flag-marker.active-flag .pin-icon {
+      transform: scale(1.2);
+      filter: brightness(1.1);
+    }
 
-            .splash {
-                transition: opacity .2s linear;
-            }
-        }
+    /* ── Bottom panel ── */
+    #bottom-panel {
+      position: fixed;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
 
-        /* =========================
-   CREATIVE TOP HEADER
-========================= */
+    .panel-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 14px;
+    }
 
-        .top-header {
-            position: fixed;
-            top: 24px;
-            right: 32px;
-            z-index: 1000;
-            pointer-events: auto;
-        }
+    .side-flags {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 4px;
+    }
 
-        /* Glass container */
-        .top-nav {
-            display: flex;
-            gap: 26px;
-            padding: 10px 18px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.55);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            box-shadow:
-                0 8px 30px rgba(0, 0, 0, 0.08),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.35);
-        }
+    .side-flag {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 2.5px solid rgba(255, 255, 255, 0.22);
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+      transition: transform 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+    }
 
-        /* Links */
-        .nav-link {
-            position: relative;
-            font: 600 14px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial;
-            color: #1b1b1b;
-            text-decoration: none;
-            letter-spacing: 0.4px;
-            padding: 6px 2px;
-            transition: color 0.25s ease;
-        }
+    .side-flag:hover {
+      transform: scale(1.1);
+      border-color: rgba(255, 255, 255, 0.55);
+    }
 
-        /* Animated underline */
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -4px;
-            width: 100%;
-            height: 2px;
-            background: #1b1b1b;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
+    .side-flag img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-        /* Hover */
-        .nav-link:hover::after {
-            transform: scaleX(1);
-        }
+    .info-card {
+      background: rgba(14, 14, 20, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 16px 20px 15px;
+      min-width: 240px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+    }
 
-        /* Accent tab (Contact) */
-        .nav-link.accent {
-            color: #8c1d18;
-        }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 13px;
+    }
 
-        .nav-link.accent::after {
-            background: #8c1d18;
-        }
+    .card-flag-img {
+      width: 36px;
+      height: 24px;
+      border-radius: 4px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      flex-shrink: 0;
+    }
 
-        /* Mobile */
-        @media (max-width: 600px) {
-            .top-header {
-                top: 14px;
-                right: 14px;
-            }
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
 
-            .top-nav {
-                gap: 18px;
-                padding: 8px 14px;
-            }
+    .card-sub {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 2px;
+    }
 
-            .nav-link {
-                font-size: 13px;
-            }
-        }
+    .explore-btn {
+      width: 100%;
+      padding: 12px 0;
+      background: linear-gradient(90deg, #d94e0c, #f07828);
+      border: none;
+      border-radius: 11px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      box-shadow: 0 4px 16px rgba(220, 80, 20, 0.4);
+    }
 
-        .rera-blueprint {
-            position: fixed;
-            top: 26px;
-            left: 30px;
-            z-index: 1000;
+    .explore-btn:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
 
-            padding-left: 14px;
-            border-left: 2px solid rgba(255, 255, 255, 0.35);
-        }
+    /* ── Dots ── */
+    #dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
 
-        .bp-label {
-            display: block;
-            font-size: 10px;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.55);
-        }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      transition: background 0.25s, transform 0.2s;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-        .bp-id {
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #ffffff;
-        }
-    </style>
+    .dot.active {
+      background: #fff;
+      transform: scale(1.15);
+    }
+
+    /* ── Branding ── */
+    #branding {
+      position: fixed;
+      bottom: 20px;
+      right: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 300;
+    }
+
+    #branding-text {
+      text-align: right;
+      line-height: 1.25;
+    }
+
+    #branding-text .b1 {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.55);
+      letter-spacing: 0.5px;
+    }
+
+    #branding-text .b2 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+
+    #branding-logo {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+  </style>
 </head>
 
 <body>
-    <!-- Top Right Creative Header -->
-    <header class="top-header">
-        <nav class="top-nav">
-            <a href="https://blogsmdblutyens.blogspot.com/" class="nav-link" target="_blank" rel="noopener noreferrer">
-                <span>Blog</span>
-            </a>
-            <a href="SubPages/About/About.html" class="nav-link">
-                <span>About</span>
-            </a>
-            <a href="SubPages/Contact/contact.html" class="nav-link accent">
-                <span>Contact</span>
-            </a>
-        </nav>
-    </header>
 
-    <div class="rera-blueprint">
-        <span class="bp-label">Regulatory Approval</span>
-        <span class="bp-id">RERA · SAS79 · PR1029</span>
+  <!-- Loading screen -->
+  <div id="loading">
+    <div class="ring"></div>
+    <p>LOADING</p>
+  </div>
+
+  <!-- 3-D canvas -->
+  <canvas id="c"></canvas>
+
+  <!-- Hamburger -->
+  <div id="menu-btn"><span></span><span></span><span></span></div>
+
+  <!-- Flag pins injected by JS -->
+  <div id="flags-container"></div>
+
+  <!-- Bottom info panel -->
+  <div id="bottom-panel">
+    <div class="panel-row">
+      <div class="side-flags" id="side-flags"></div>
+      <div class="info-card">
+        <div class="card-header">
+          <img class="card-flag-img" id="card-flag-img" src="" alt="">
+          <div>
+            <div class="card-title" id="card-name"></div>
+            <div class="card-sub" id="card-sub"></div>
+          </div>
+        </div>
+        <button class="explore-btn" id="explore-btn" onclick="window.location.href='Subpage/index.html'">Explore</button>
+      </div>
     </div>
+    <div id="dots"></div>
+  </div>
 
+  
 
-    <!-- Splash / Welcome Overlay -->
-    <div id="splash" class="splash" aria-live="polite" role="status">
-        <div class="splash__backdrop"></div>
-        <div class="splash__content" role="img" aria-label="Powered by BetterSide">
-            <div class="splash__text">Powered by <strong>BetterSide.in</strong></div>
-        </div>
-    </div>
-    <!-- Button (use JS click handler so message is built fresh on click) -->
-    <button id="waFab" class="wa-fab" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
-        <!-- simple inline WhatsApp SVG icon -->
-        <svg class="wa-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path
-                d="M21.02 11.63c0 5.38-4.36 9.74-9.74 9.74-1.24 0-2.42-.23-3.51-.65l-6.78 2 1.67-6.54a9.8 9.8 0 0 1-1.12-4.55c0-5.38 4.36-9.74 9.74-9.74s9.74 4.36 9.74 9.74Z"
-                style="fill:#fff;stroke:#fff;stroke-miterlimit:10;stroke-width:.25px" />
-            <path
-                d="M15.45 13.68c-.32-.11-.54-.21-.75.11s-.86 1.07-.97 1.29c-.11.21-.32.21-.54.11-.32-.11-1.4-.43-2.58-1.5-.97-.86-1.61-1.83-1.83-2.15s0-.54.11-.75l.43-.43c.11-.11.21-.32.32-.54s.04-.43-.02-.64c-.06-.16-.64-1.72-.97-2.36-.21-.54-.43-.43-.64-.43h-.54c-.18 0-.48.06-.75.35-.27.28-1.02 1.01-1.02 2.47s0 2.79 1.18 4.19 3.22 2.9 5.16 3.65c1.93.75 2.15.54 2.58.54s1.72-.54 2.04-1.29.25-1.24.21-1.4-.11-.42-.38-.57l-1.05-.64Z"
-                style="fill:#25d366" />
-        </svg>
-    </button>
-    <div id="waLabel" class="wa-label">Chat on WhatsApp</div>
-    <!-- Quick interaction hint (appears for ~2–3s) -->
-    <div id="ui-hint" class="ui-hint" aria-live="polite" role="status">
-        <!-- shown on mouse/trackpad devices -->
-        <div class="ui-hint__row ui-hint__desktop">
-            <!-- mouse icon (inline SVG) -->
-            <svg width="18" height="24" viewBox="0 0 18 24" aria-hidden="true">
-                <path d="M9 1c3.9 0 7 3.1 7 7v8c0 3.9-3.1 7-7 7s-7-3.1-7-7V8c0-3.9 3.1-7 7-7z" fill="white"
-                    opacity=".18" />
-                <rect x="8" y="4" width="2" height="5" rx="1" fill="white" />
-                <rect x="5" y="10" width="8" height="9" rx="4" fill="white" opacity=".4" />
-            </svg>
-            <span>Click Tower's to Select Floors</span>
-        </div>
+  <!-- Three.js ES-module import map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three":          "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/":  "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
 
-        <!-- shown on touch devices -->
-        <div class="ui-hint__row ui-hint__touch">
-            <!-- finger icon (inline SVG) -->
-            <svg width="18" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                    d="M12 2a4 4 0 014 4v4h1.2a2.8 2.8 0 012.8 2.8V16c0 3.3-2.7 6-6 6H9.5A5.5 5.5 0 014 16.5V11a3 3 0 016 0v3h1V6a4 4 0 011-2.7z"
-                    fill="white" opacity=".28" />
-                <rect x="11" y="5" width="2" height="9" rx="1" fill="white" />
-            </svg>
-            <span>Click on Tower's To Select Floor</span>
-        </div>
-    </div>
+ <script type="module">
+  import * as THREE from 'three';
+  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+  import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+  // ── Locations ────────────────────────────────────────────────
+  const LOCATIONS = [
+    {
+      id: 'punjab', name: 'Punjab, India',
+      sub: 'India · 3 Projects',
+      lat: 31.1, lon: 75.3, zoomDist: 2.8,
+      flag: 'https://flagcdn.com/w80/in.png'
+    },
+    
+  ];
 
-    <!-- <div class="context-chip" id="projectTag" aria-hidden="true">
-        <div class="mdb">
-            <img src="images/Thumbnail/MDB-logo.png" alt="MDB Logo" class="pdf-icon"
-                onload="this.nextElementSibling.style.display='none'" />
-            <span class="fallback-text">MDB</span>
-        </div>
-        <div class="lutyen">Lutyen Residence</div>
-    </div> -->
+  let activeIndex = 0;
 
+  // ── Renderer ─────────────────────────────────────────────────
+  const canvas = document.getElementById('c');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.setClearColor(0x000000, 1);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
 
+  // ── Scene / Camera ───────────────────────────────────────────
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(38, innerWidth / innerHeight, 0.01, 5000);
+  camera.position.set(0, 1.2, 4.4);
 
+  // ── Orbit Controls ───────────────────────────────────────────
+  const controls = new OrbitControls(camera, canvas);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.04;
+  controls.enableZoom = false;
+  controls.enablePan = false;
+  controls.autoRotate = false;
+  controls.target.set(0, 0, 0);
+  controls.update();
 
+  // ── Lights ───────────────────────────────────────────────────
+  const sun = new THREE.DirectionalLight(0xfff5ee, 4.0);
+  sun.position.set(-5, 6, 3);
+  scene.add(sun);
+  scene.add(new THREE.AmbientLight(0x0a0e1a, 2.5));
+  const fill = new THREE.DirectionalLight(0x0d1f44, 0.4);
+  fill.position.set(4, -3, -4);
+  scene.add(fill);
 
-    <!-- Info Card Modal -->
-    <div id="infoCard" class="info-card">
-        <div class="info-content">
+  // ── Starfield ────────────────────────────────────────────────
+  (function buildStars() {
+    const W = 4096, H = 2048;
+    const cv = document.createElement('canvas');
+    cv.width = W; cv.height = H;
+    const ctx = cv.getContext('2d');
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, W, H);
+    [
+      { x: .06, y: .52, r: .24, a: .20 },
+      { x: .83, y: .18, r: .18, a: .12 }
+    ].forEach(n => {
+      const g = ctx.createRadialGradient(n.x*W, n.y*H, 0, n.x*W, n.y*H, n.r*W);
+      g.addColorStop(0, `rgba(48,52,80,${n.a})`);
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    });
+    for (let i = 0; i < 6000; i++) {
+      const x = Math.random()*W, y = Math.random()*H;
+      ctx.beginPath();
+      ctx.arc(x, y, Math.random()*0.65+0.12, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(255,255,255,${(Math.random()*0.4+0.12).toFixed(2)})`;
+      ctx.fill();
+    }
+    for (let i = 0; i < 550; i++) {
+      const x = Math.random()*W, y = Math.random()*H;
+      ctx.beginPath();
+      ctx.arc(x, y, Math.random()*0.85+0.45, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(195,215,255,${(Math.random()*0.4+0.38).toFixed(2)})`;
+      ctx.fill();
+    }
+    scene.background = new THREE.CanvasTexture(cv);
+  })();
 
-            <h2 id="modalTitle">Tower_A</h2>
+  // ── Atmosphere ───────────────────────────────────────────────
+  let atmoMeshes = [];
+  function buildAtmo(rad) {
+    atmoMeshes.forEach(m => scene.remove(m));
+    atmoMeshes = [];
+    const mat = new THREE.ShaderMaterial({
+      transparent: true, depthWrite: false, side: THREE.BackSide,
+      uniforms: { sunDir: { value: new THREE.Vector3(-5,6,3).normalize() } },
+      vertexShader: `
+        varying vec3 vN, vV;
+        void main() {
+          vN = normalize(normalMatrix * normal);
+          vV = normalize(-(modelViewMatrix * vec4(position,1.0)).xyz);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+        }`,
+      fragmentShader: `
+        varying vec3 vN, vV;
+        uniform vec3 sunDir;
+        void main() {
+          float rim = pow(1.0 - clamp(dot(vV,vN),0.0,1.0), 3.0);
+          float s   = clamp(dot(vN,sunDir)*1.8+0.55, 0.0, 1.0);
+          vec3  col = mix(vec3(0.2,0.5,1.0), vec3(0.5,0.75,1.0), rim);
+          gl_FragColor = vec4(col, rim*s*0.8);
+        }`,
+    });
+    const mesh = new THREE.Mesh(new THREE.SphereGeometry(rad*1.012, 128, 128), mat);
+    scene.add(mesh);
+    atmoMeshes.push(mesh);
+  }
 
-            <div class="image-placeholder">
-                <img src="images/Thumbnail/Tower_A.webp" alt="Tower A" />
-            </div>
-            <div class="info-details" id="details"></div>
-            <button class="explore-btn" id="navigateButton">Explore</button>
-        </div>
-    </div>
+  // ── Earth Group ──────────────────────────────────────────────
+  const earthGroup = new THREE.Group();
+  scene.add(earthGroup);
+  let earthRadius = 1.0;
 
+  function clearEarth() {
+    while (earthGroup.children.length)
+      earthGroup.remove(earthGroup.children[0]);
+  }
 
-    <div class="Front">
-        <div class="image-wrapper">
-            <link rel="preload" as="image" href="images/Home.jpg" />
+  function buildPlaceholder() {
+    clearEarth();
+    earthGroup.add(new THREE.Mesh(
+      new THREE.SphereGeometry(1, 64, 64),
+      new THREE.MeshPhongMaterial({ color: 0x1a6088, emissive: 0x020c18 })
+    ));
+    earthRadius = 1.0;
+    buildAtmo(1.0);
+  }
+  buildPlaceholder();
 
-            <img id="mainImage" src="images/Thumbnail/Home_Low.webp" data-full="images/Home.jpg" alt="Home"
-                fetchpriority="high" decoding="async" width="3840" height="5830" class="blur-up" />
-            <div class="Cutout">
-                <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 3840 5830">
-                    <path id="Tower_A" data-link="Tower_A.html" data-name="Tower_A"
-                        data-img="images/Thumbnail/Tower_A.jpg"
-                        d="m693.2 2402 46.7 22.7 16.2 812.4 19.8 13.1v26.2l-29.5 13.8 109.1 57.7 165.1-65.1 5.3 3.3 43.3-16.7-.7-9.9-2.2-.2-.4-21.8 9-4.4v10.3l7.2-2.2-1.2-10.8 33.8-14.1-.6 11.1 6.9-2-1.1-11.2 50.8-21.3v9.5l7.4-1.3-1-9.9 52.8-22.6v9.6l7.5-1.4-.3-11.6 31.4-12.9.8 9.4 6.2-1v-11.4l26.7-10.8v10.3l6.9-1.2v-11.8l4.4-.4-1.2 15.2 20.2 7.8 39.7-14.8-1.3-34.6 101.9-42 .4 8.8 6.5-.3v-11.1l52.1-21.5.6 9.2 7.3-1.5v-10.8l29.3-12.4v9.2l7.3-1.2v-10.9l26.5-11.2v9.1l5.6-.3v-11l4.9-3.9-.8 18.9 17.4 8.2 42.2-18.5-.4-9.4-2.1-.2.3-21.4 10-3.3-1.1 9.1 6.5-1.9-1.3-9.8 31.6-12.8-.4 9.1 6.7-1.2v-10.1l77.2-33.3V2294l-110.9-70 .1-77.9 73.8-30.8-48.7-35.2-112.6-53.2-862.5 340.4z"
-                        class="st0" />
-                    <path id="Tower_B" data-link="Tower_B.html" data-name="Tower_B"
-                        data-img="images/Thumbnail/Tower_B.jpg"
-                        d="m2025.4 2345.6-55.1 33.2 52 24.7v36.6l-52.8 22.7 6.3 3.8-.6 8.2-5.2 1v3.9l6 1.2-2.7 82.1-56.8-23.5-10.7 2-1.8-6.3-7.7-.3v-3.5l.8-3.8-1.8-1.3-2.8-5.3v-3.3s-3.7-1.3-4.3-1.7c-.7-.3-6.5-5.5-6.5-5.5l-6.8 2-6.5 4-3.2 4v6.8l-5.8 6.3-4.8 8.3-4 6.2-6.7 6.5v16.8l-4.5 1.3v4.5h-5.5l-1.3 3.7 2.7 646.7 18.6 9.8-.1 15.2 9.6-.5.2-9.9 43.6 23.5-.4 14.4 9.5-3-.1-8.2 30.3 14.6 29.2-12.4-2 31 35.9 18.1-.4-6.2 45.6 22.8-.7 13.8h9.4l1.4-9 43.9 21.2-1.4 15.8 9.3-3 1.1-7.2 37.4 19-.8 14.6 5 1.3 1-13.8 48.5 23.6v14.4h8.8l.4-10.1 4.6 2.6-.2 10.3 3.1.6v-10.3l7.1 5-.7 10.9h8.3l-1.7-9.1 10.9 5.3 29.7-12.4-2.2 31.3 82 35.9-.3 14.4 9.9-.8.9-9.7 44.8 23.9-.7 15.3 7-3.4.4-9.3 40.7 20.6.6 16.3 8.9-3.8-.8-8.3 45.3 22.6v15.9l9.9-4-1-7.7s32 16.1 32.4 16.1 30.7-13.6 30.7-13.6l-1.9 32.6 36.1 17.6v-4.6l46.7 23.3 1.2 15.8 9.2-2.3.4-8.3 49.3 23.6.4-11.3-3.3-6.7-8-4.4-.6-3.9 9-3.1.7-3.8-1.7-5.8 4.8-4.5 2-3.8 8.9-4.6s13.9 4 14.2 4 6.8 1.7 6.8 1.7l198.1-88.1v-4.7l4.4-8.2 7.3-3.6 9.8 2.9 8-1.3 16-6 13.2-646.8v-2.7l4.3-9.2s-3.5-4.7-4-5-4.8-2.3-4.8-2.3l-5.3-4.3-5.5-3.5s-9.7-4.3-10.5-4.3-1.8-.5-4.7-.8c-2.8-.3-4.2-5.5-4.2-5.5l-9.5-2-11.8-11-17.5-3-7.3 2.3s-6-6.5-6.8-6.5-12.2 8.7-12.2 8.7-11.7 5.2-12.5 5.2-2.3 8.5-2.3 8.5l-29.7-9.3-3-5.5-1.7-5.8-.5-121.3 4.8-2.2-.7-3.6-4.2-.5v-8.4h3.8l2.2-6.9 5.9-5.6-46.7-33.8 5.8-2.4v-5.6l-706.4-325.1-110.7 45.4z"
-                        class="st0" />
-                </svg>
-                <!-- New: overlay that sits exactly on top of the image -->
+  // ── GLB Loader ───────────────────────────────────────────────
+  const gltfLoader = new GLTFLoader();
+  const loadingEl   = document.getElementById('loading');
+  const loadingText = document.querySelector('#loading p');
 
-            </div>
-        </div>
-    </div>
-    <!-- Hotspot overlay (empty container, JS will size/position it) -->
-    <div class="hs-layer" id="hsLayer">
-        <!-- Example hotspots: use % relative to the image -->
-        <button class="hs-dot" style="top:60%; left:43%;" onclick="location.href='SubPages/GodEye/Garden.html'">
-            <img src="images/360_img.png" alt="Garden">
-        </button>
+  function loadGLB(url) {
+    loadingEl.style.display = 'flex';
+    loadingText.textContent = 'LOADING';
+    clearEarth();
+    atmoMeshes.forEach(m => scene.remove(m));
+    atmoMeshes = [];
 
-        <button class="hs-dot" style="top:58%; left:25%;" onclick="location.href='SubPages/GodEye/Pool.html'">
-            <img src="images/360_img.png" alt="Pool">
-        </button>
-
-        <button class="hs-dot" style="top:55%; left:43%;" onclick="location.href='SubPages/GodEye/SidePath.html'">
-            <img src="images/360_img.png" alt="Side Path">
-        </button>
-
-        <button class="hs-dot" style="top:66.5%; left:84%;" onclick="location.href='SubPages/GodEye/Commercial.html'">
-            <img src="images/360_img.png" alt="Commercial">
-        </button>
-    </div>
-    <!-- Bottom Center Panel -->
-    <nav class="jumpbar" role="navigation" aria-label="Quick jumps">
-        <div class="jumpbar-inner">
-            <button class="jumpchip" onclick="location.href='SubPages/GodEye/Garden.html'">Garden</button>
-            <button class="jumpchip" onclick="location.href='SubPages/GodEye/SidePath.html'">SidePath</button>
-            <button class="jumpchip" onclick="location.href='SubPages/GodEye/Pool.html'">Pool</button>
-            <button class="jumpchip" onclick="location.href='SubPages/GodEye/Commercial.html'">Commercial</button>
-            <button class="jumpchip" onclick="location.href='SubPages/Tower_A.html'">Tower A</button>
-            <button class="jumpchip" onclick="location.href='SubPages/Tower_B.html'">Tower B</button>
-            <!-- add more as you like -->
-        </div>
-    </nav>
-
-    <script src="JS/pzmdz4cehb.js"></script>
-    <script src="JS/5v7e509sj1.js"></script>
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const paths = document.querySelectorAll('.Cutout path');
-            const modal = document.getElementById('infoCard');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalButton = document.getElementById('navigateButton');
-            const imagePlaceholder = document.querySelector('.image-placeholder img');
-
-            let selectedPath = null;
-            let currentLink = '';
-
-            // Handle path clicks
-            paths.forEach(path => {
-                const link = path.getAttribute('data-link');
-                const name = path.getAttribute('data-name') || 'Building Info';
-
-                if (link) {
-                    path.addEventListener('click', (e) => {
-                        e.stopPropagation();
-
-                        // Deselect previously selected path
-                        if (selectedPath && selectedPath !== path) {
-                            selectedPath.classList.remove('selected');
-                        }
-
-                        selectedPath = path;
-                        selectedPath.classList.add('selected');
-
-                        // Update modal info
-                        currentLink = `SubPages/${link}`;
-                        modalTitle.textContent = name;
-
-                        // 🔹 Load image dynamically based on data-name
-                        const imagePath = `images/Thumbnail/${name}.webp`; // Example: images/Tower_A.jpg
-                        imagePlaceholder.src = imagePath;
-                        imagePlaceholder.alt = name;
-
-                        // Show modal
-                        modal.style.display = 'flex';
-                    });
-                }
-            });
-
-            // Navigate button click
-            modalButton.addEventListener('click', () => {
-                if (currentLink) {
-                    window.location.href = currentLink;
-                }
-            });
-
-            // Click outside modal to close
-            document.addEventListener('click', (e) => {
-                const isPath = e.target.closest('path');
-                const isModal = e.target.closest('.info-content');
-                if (!isPath && !isModal) {
-                    modal.style.display = 'none';
-                    if (selectedPath) {
-                        selectedPath.classList.remove('selected');
-                        selectedPath = null;
-                    }
-                    currentLink = '';
-                    modalTitle.textContent = '~';
-                }
-            });
+    gltfLoader.load(url,
+      gltf => {
+        const model = gltf.scene;
+        const box  = new THREE.Box3().setFromObject(model);
+        const size = box.getSize(new THREE.Vector3());
+        const center = box.getCenter(new THREE.Vector3());
+        const s = 2.1 / Math.max(size.x, size.y, size.z);
+        model.scale.setScalar(s);
+        model.position.sub(center.multiplyScalar(s));
+        model.traverse(ch => {
+          if (!ch.isMesh || !ch.material) return;
+          const m = ch.material;
+          ['map','normalMap','roughnessMap','metalnessMap','aoMap','emissiveMap'].forEach(k => {
+            if (m[k]) { m[k].anisotropy = renderer.capabilities.getMaxAnisotropy(); m[k].needsUpdate = true; }
+          });
+          if (m.isMeshStandardMaterial) {
+            m.roughness = Math.max(m.roughness ?? 0.6, 0.3);
+            m.metalness = Math.min(m.metalness ?? 0.0, 0.05);
+          }
+          m.needsUpdate = true;
         });
-    </script>
+        earthGroup.add(model);
+        const nb = new THREE.Box3().setFromObject(earthGroup);
+        const ns = nb.getSize(new THREE.Vector3());
+        earthRadius = Math.max(ns.x, ns.y, ns.z) / 2;
+        buildAtmo(earthRadius);
+        rebuildFlags();
+        selectLocation(activeIndex, false);
+        loadingEl.style.display = 'none';
+      },
+      xhr => {
+        if (xhr.total)
+          loadingText.textContent = `LOADING ${Math.round(xhr.loaded / xhr.total * 100)}%`;
+      },
+      err => {
+        console.error('GLB error:', err);
+        buildPlaceholder();
+        rebuildFlags();
+        loadingEl.style.display = 'none';
+      }
+    );
+  }
 
+  // ── Coordinate helper ────────────────────────────────────────
+  function latLonTo3D(lat, lon, radius) {
+    const phi   = THREE.MathUtils.degToRad(90 - lat);
+    const theta = THREE.MathUtils.degToRad(-lon);
+    return new THREE.Vector3(
+      radius * Math.sin(phi) * Math.cos(theta),
+      radius * Math.cos(phi),
+      radius * Math.sin(phi) * Math.sin(theta)
+    );
+  }
 
+  // ── Flag pins ────────────────────────────────────────────────
+  let flagEls = [];
+  function rebuildFlags() {
+    const cont = document.getElementById('flags-container');
+    cont.innerHTML = '';
+    flagEls = [];
+    LOCATIONS.forEach((loc, i) => {
+      const el = document.createElement('div');
+      el.className = 'flag-marker' + (i === activeIndex ? ' active-flag' : '');
+      el.innerHTML = `
+        <div class="pin-icon">
+          <svg viewBox="0 0 36 48" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="pg${i}" cx="40%" cy="35%">
+                <stop offset="0%"   stop-color="#ff6b3d"/>
+                <stop offset="100%" stop-color="#d63a00"/>
+              </radialGradient>
+            </defs>
+            <path d="M18 0C8.06 0 0 8.06 0 18c0 12.6 18 30 18 30s18-17.4 18-30C36 8.06 27.94 0 18 0z"
+                  fill="url(#pg${i})"/>
+            <circle cx="18" cy="17" r="7" fill="white" opacity="0.9"/>
+          </svg>
+        </div>`;
+      el.addEventListener('click', () => selectLocation(i));
+      cont.appendChild(el);
+      flagEls.push({ el, loc, pos3D: latLonTo3D(loc.lat, loc.lon, earthRadius) });
+    });
+  }
+  rebuildFlags();
 
-    <script>
-        (function () {
-            const img = document.querySelector('.image-wrapper img');
-            const layer = document.getElementById('hsLayer');
-            if (!img || !layer) return;
+  // ── Dots ─────────────────────────────────────────────────────
+  function buildDots() {
+    const d = document.getElementById('dots');
+    d.innerHTML = '';
+    LOCATIONS.forEach((_, i) => {
+      const el = document.createElement('div');
+      el.className = 'dot' + (i === activeIndex ? ' active' : '');
+      el.addEventListener('click', () => selectLocation(i));
+      d.appendChild(el);
+    });
+  }
+  buildDots();
 
-            // Read the actual on-screen rectangle of the image and pin the overlay to it
-            function doSync() {
-                const r = img.getBoundingClientRect();
-                layer.style.top = r.top + 'px';
-                layer.style.left = r.left + 'px';
-                layer.style.width = r.width + 'px';
-                layer.style.height = r.height + 'px';
-            }
+  // ── Select location ──────────────────────────────────────────
+  function selectLocation(index, animate = true) {
+    activeIndex = index;
+    const loc = LOCATIONS[index];
 
-            // Run the sync AFTER layout has fully settled
-            function syncAfterLayout() {
-                requestAnimationFrame(() => requestAnimationFrame(doSync));
-            }
+    document.getElementById('card-name').textContent = loc.name;
+    document.getElementById('card-sub').textContent  = loc.sub;
+    document.getElementById('card-flag-img').src     = loc.flag;
 
-            // Initial syncs
-            if (img.complete) syncAfterLayout();
-            else img.addEventListener('load', syncAfterLayout, { once: true });
-            window.addEventListener('load', syncAfterLayout, { once: true });
+    // ✅ Explore button passes correct location id
+    document.getElementById('explore-btn').onclick = () =>
+      window.location.href = `Subpage/index.html?location=${loc.id}`;
 
-            // On resize / orientation
-            window.addEventListener('resize', syncAfterLayout);
-            window.addEventListener('orientationchange', () => {
-                syncAfterLayout();
-                // extra pass for mobile browsers that "settle" a moment later
-                setTimeout(syncAfterLayout, 250);
-            });
+    flagEls.forEach((f, i) => f.el.classList.toggle('active-flag', i === index));
 
-            // On aspect-ratio media query flips
-            const mqPortrait = window.matchMedia('(max-aspect-ratio: 3840/5830)');
-            const mqLandscape = window.matchMedia('(min-aspect-ratio: 3840/5830)');
-            if (mqPortrait.addEventListener) {
-                mqPortrait.addEventListener('change', syncAfterLayout);
-                mqLandscape.addEventListener('change', syncAfterLayout);
-            } else if (mqPortrait.addListener) { // Safari <14
-                mqPortrait.addListener(syncAfterLayout);
-                mqLandscape.addListener(syncAfterLayout);
-            }
+    const sideEl = document.getElementById('side-flags');
+    sideEl.innerHTML = '';
+    LOCATIONS.forEach((other, i) => {
+      if (i === index) return;
+      const div = document.createElement('div');
+      div.className = 'side-flag';
+      div.innerHTML = `<img src="${other.flag}" alt="${other.name}">`;
+      div.addEventListener('click', () => selectLocation(i));
+      sideEl.appendChild(div);
+    });
 
-            // Watch the image box itself
-            if ('ResizeObserver' in window) {
-                new ResizeObserver(syncAfterLayout).observe(img);
-            }
-        })();
-    </script>
-    <script src="JS/Notification/f43kzz4mgm.js"></script>
+    document.querySelectorAll('.dot').forEach((d, i) =>
+      d.classList.toggle('active', i === index)
+    );
 
+    if (animate) zoomToLocation(loc);
+  }
 
+  // ── Camera animation ─────────────────────────────────────────
+  function easeInOut(t) {
+    t = Math.min(Math.max(t, 0), 1);
+    return t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+  }
 
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const mq = window.matchMedia('(max-width: 600px)');
+  let animating = false;
+  let animRafId = null;
 
-            const desktopPositions = {
-                Tower_A: { left: 35, top: 47 },
-                Tower_B: { left: 59, top: 52 }
-            };
-            const mobilePositions = {
-                Tower_A: { left: 35, top: 48 },
-                Tower_B: { left: 58, top: 53 }
-            };
+  function zoomToLocation(loc) {
+    if (animRafId !== null) { cancelAnimationFrame(animRafId); animRafId = null; }
+    controls.enableDamping = false;
 
-            function runPins() {
-                initTowerPins({
-                    svgSelector: '.Cutout svg',
-                    layerSelector: '#hsLayer',
-                    viewBox: [3840, 5830],
-                    positions: mq.matches ? mobilePositions : desktopPositions
-                });
-            }
+    const targetPos = latLonTo3D(loc.lat, loc.lon, earthRadius)
+      .normalize().multiplyScalar(loc.zoomDist);
+    const startPos    = camera.position.clone();
+    const startFOV    = camera.fov;
+    const startTarget = controls.target.clone();
+    const endTarget   = new THREE.Vector3(0, 0, 0);
+    const duration    = 1800;
+    const startTime   = performance.now();
+    animating = true;
 
-            runPins();                   // initial
-            mq.addEventListener?.('change', runPins);
-            // Safari fallback:
-            if (!mq.addEventListener) mq.addListener(runPins);
+    function step(now) {
+      const raw = (now - startTime) / duration;
+      const t   = easeInOut(raw);
+      camera.position.lerpVectors(startPos, targetPos, t);
+      controls.target.lerpVectors(startTarget, endTarget, t);
+      camera.fov = startFOV + (34 - startFOV) * t;
+      camera.updateProjectionMatrix();
+      controls.update();
+      if (raw < 1.0) {
+        animRafId = requestAnimationFrame(step);
+      } else {
+        camera.position.copy(targetPos);
+        controls.target.copy(endTarget);
+        camera.fov = 34;
+        camera.updateProjectionMatrix();
+        controls.enableDamping = true;
+        controls.update();
+        animating  = false;
+        animRafId  = null;
+      }
+    }
+    animRafId = requestAnimationFrame(step);
+  }
 
-            // Also re-run after your image/layer sync settles (optional but safer)
-            window.addEventListener('resize', () => requestAnimationFrame(runPins));
-            window.addEventListener('orientationchange', () => setTimeout(runPins, 250));
-        });
-    </script>
+  // ── Resize ───────────────────────────────────────────────────
+  window.addEventListener('resize', () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+  });
 
+  // ── Init ─────────────────────────────────────────────────────
+  selectLocation(0);
+  loadGLB('globe.glb');
 
-
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const paths = document.querySelectorAll('.Cutout path');
-            const infoCard = document.getElementById('infoCard');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalButton = document.getElementById('navigateButton');
-            const detailsEl = document.getElementById('details');          // optional details container
-            const imgEl = document.querySelector('.image-placeholder img'); // if you show an image
-
-            let selectedPath = null;
-            let currentLink = '';
-
-            // 1) Configure content for each tower here
-            const INFO = {
-                Tower_A: {
-                    title: 'Tower_A',
-                    lowImg: 'images/Thumbnail/Icon/Tower_A.jpg',
-                    img: 'images/Thumbnail/Icon/Tower_A.jpg',
-                    link: 'SubPages/Tower_A.html',
-                    detailsHTML: `
-          <div><strong>Total Units:</strong> 112</div>
-          <div><strong>Apartments:</strong> 107</div>
-          <div><strong>Penthouse:</strong>5</div>
-          <div><strong>Bedroom:</strong>3BHK+1</div>
-        `
-                },
-                Tower_B: {
-                    title: 'Tower_B',
-                    lowImg: 'images/Thumbnail/Icon/Tower_B.jpg',
-                    img: 'images/Thumbnail/Icon/Tower_B.jpg',
-                    link: 'SubPages/Tower_B.html',
-                    detailsHTML: `
-          <div><strong>Total Units:</strong> 219</div>
-          <div><strong>Apartments:</strong> 213</div>
-          <div><strong>Penthouse:</strong>6</div>
-          <div><strong>Bedroom:</strong>3BHK</div>
-        `
-                }
-            };
-
-            function setExploreState(hasLink) {
-                if (!modalButton) return;
-                modalButton.disabled = !hasLink;
-                modalButton.style.opacity = hasLink ? '1' : '0.6';
-                modalButton.style.pointerEvents = hasLink ? 'auto' : 'none';
-                modalButton.title = hasLink ? '' : 'No page linked';
-            }
-            // scoped only to this script (modal image)
-            function swapModalImage(imgEl, highSrc, lowSrc) {
-                if (!imgEl || !highSrc) return;
-
-                // optional low-res (fallback to placeholder if not provided)
-                if (lowSrc) {
-                    imgEl.src = lowSrc;
-                }
-
-                imgEl.classList.remove('is-loaded');   // reset blur state if reused
-                imgEl.classList.add('blur-up');        // ensure blur-up style is applied
-
-                const hi = new Image();
-                hi.decoding = 'async';
-                hi.src = highSrc;
-
-                const done = () => {
-                    imgEl.src = highSrc;
-                    imgEl.classList.add('is-loaded');
-                };
-
-                if (typeof hi.decode === 'function') {
-                    hi.decode().then(done).catch(done);
-                } else {
-                    hi.onload = done;
-                    hi.onerror = done;
-                }
-            }
-
-            // if you have a consistent low-res naming: file.ext -> file_Low.webp
-            function toLowResPath(fullPath) {
-                // tweak to match your actual low-res naming or return null to skip
-                return fullPath.replace(/(\.\w+)$/, '_Low.webp');
-            }
-
-            function render(info) {
-                // Title
-                modalTitle.textContent = info.title || '~';
-
-                // Image (only modal image is affected)
-                if (imgEl && info.img) {
-                    const high = info.img;
-                    const low = toLowResPath(high); // or set to null if you don't keep _Low.webp files
-                    imgEl.alt = info.title;
-                    swapModalImage(imgEl, high, low);
-                }
-
-                // Details
-                if (detailsEl) {
-                    detailsEl.innerHTML = info.detailsHTML || '';
-                }
-
-                // Link
-                currentLink = info.link || '';
-                setExploreState(!!currentLink);
-
-                // Show card
-                infoCard.style.display = 'flex';
-            }
-
-
-            // 2) Wire up just the two paths
-            paths.forEach(path => {
-                path.addEventListener('click', (e) => {
-                    e.stopPropagation();
-
-                    // which tower?
-                    const key = (path.getAttribute('data-name') || path.id || '').trim();
-                    const info = INFO[key];
-                    if (!info) return; // ignore any other paths
-
-                    // selection styling
-                    if (selectedPath && selectedPath !== path) selectedPath.classList.remove('selected');
-                    path.classList.add('selected');
-                    selectedPath = path;
-
-                    render(info);
-                });
-            });
-
-            // Explore -> navigate
-            modalButton?.addEventListener('click', () => {
-                if (currentLink) window.location.href = currentLink;
-            });
-
-            // Click outside -> close
-            document.addEventListener('click', (e) => {
-                const isPath = e.target.closest('path');
-                const isModal = e.target.closest('.info-content');
-                if (!isPath && !isModal) {
-                    infoCard.style.display = 'none';
-                    if (selectedPath) selectedPath.classList.remove('selected');
-                    selectedPath = null;
-                    currentLink = '';
-                    modalTitle.textContent = '~';
-                    setExploreState(false);
-                }
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const splash = document.getElementById("splash");
-            if (!splash) return;
-
-            // lock scroll while splash is visible
-            document.body.classList.add("splash-active");
-
-            // how long splash shows (ms)
-            const SHOW_MS = 2000;
-            const FADE_MS = 600; // must match CSS transition
-
-            setTimeout(() => {
-                // start fade-out
-                splash.classList.add("is-hidden");
-
-                // after fade, remove overlay and unlock scroll
-                setTimeout(() => {
-                    splash.remove();
-                    document.body.classList.remove("splash-active");
-                }, FADE_MS);
-            }, SHOW_MS);
-        });
-    </script>
-
-
-
-
-    <script src="JS/fnkfxtlgha.js"></script>
-
-
-
-    <script src="JS/dhza9or56u.js"></script>
+  // ── Render loop ──────────────────────────────────────────────
+  function renderLoop() {
+    requestAnimationFrame(renderLoop);
+    if (!animating) controls.update();
+    sun.position.copy(camera.position).normalize().multiplyScalar(10);
+    sun.position.y += 3;
+    atmoMeshes.forEach(m => {
+      if (m.material.uniforms?.sunDir)
+        m.material.uniforms.sunDir.value.copy(sun.position).normalize();
+    });
+    earthGroup.updateMatrixWorld(true);
+    const camDir = camera.position.clone().normalize();
+    flagEls.forEach(item => {
+      const proj = item.pos3D.clone().project(camera);
+      const x = (proj.x * 0.5 + 0.5) * innerWidth;
+      const y = (proj.y * -0.5 + 0.5) * innerHeight;
+      const dot = item.pos3D.clone().normalize().dot(camDir);
+      const visible = dot > 0.05 && proj.z < 1.0;
+      item.el.style.left    = x + 'px';
+      item.el.style.top     = y + 'px';
+      item.el.style.display = visible ? 'flex' : 'none';
+      item.el.style.opacity = visible ? Math.min(1, (dot-0.05)*5) : '0';
+      item.el.style.zIndex  = visible ? Math.round(dot*100) : 0;
+    });
+    renderer.render(scene, camera);
+  }
+  renderLoop();
+</script>
 </body>
 
 </html>
